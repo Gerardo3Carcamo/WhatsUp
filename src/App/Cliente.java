@@ -6,23 +6,19 @@ package App;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
+import java.awt.Font; 
 import java.awt.Rectangle;
-import java.awt.event.KeyEvent;
+import java.awt.event.KeyEvent; 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
-import javax.net.ssl.SSLSocket;
+import java.io.DataOutputStream; 
+import java.io.IOException; 
+import java.net.Socket; 
 import javax.swing.BoxLayout;
-import javax.swing.ImageIcon;
+import javax.swing.ImageIcon; 
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JLabel; 
 import javax.swing.JScrollBar;
-import javax.swing.SwingUtilities;
+import javax.swing.SwingUtilities; 
 
 /**
  *
@@ -275,6 +271,32 @@ public class Cliente extends javax.swing.JFrame implements Runnable {
         }
     }//GEN-LAST:event_mensajeKeyPressed
 
+    public void sendFileMessage(byte[] dataFile) {
+        try {
+            salida.write(dataFile);
+            Rectangle r = this.panelChats.getBounds();
+            JLabel mensajeEnviado = new JLabel(this.mensaje.getText());
+
+            mensajeEnviado.setHorizontalAlignment(JLabel.RIGHT);  // Alinear el texto a la derecha
+            mensajeEnviado.setOpaque(true);
+            mensajeEnviado.setBackground(new Color(255, 255, 255));
+            mensajeEnviado.setSize(r.width, 35);
+            mensajeEnviado.setFont(new Font("Fira Code", Font.PLAIN, 18));
+            mensajeEnviado.setMaximumSize(new Dimension(Integer.MAX_VALUE, mensajeEnviado.getPreferredSize().height));
+
+            this.panelChats.add(mensajeEnviado);
+            this.jScrollPane2.updateUI();
+            this.panelChats.updateUI();
+            JScrollBar vertical = jScrollPane2.getVerticalScrollBar();
+            vertical.setValue(vertical.getMaximum());
+
+            this.mensaje.setText("");
+        } catch (Exception ex) {
+            String m = ex.getMessage();
+            System.out.println(m);
+        }
+    }
+    
     public void sendMessage() {
         try {
             salida.writeUTF(this.mensaje.getText());

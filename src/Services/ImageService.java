@@ -10,10 +10,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -41,9 +37,9 @@ public class ImageService {
         return bytes;
     }
 
-    public ImageIcon getImage(byte[] data, int width, int height) throws IOException {
-        Image o = new ImageIcon(data).getImage();
-        ImageIcon img2 = new ImageIcon(o.getScaledInstance(300, 250, Image.SCALE_SMOOTH));
+    public ImageIcon getImage(byte[] dataImage) throws IOException {
+        Image o = new ImageIcon(dataImage).getImage();
+        ImageIcon img2 = new ImageIcon(o.getScaledInstance(350, 250, Image.SCALE_SMOOTH));
         return img2;
     }
     
